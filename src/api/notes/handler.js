@@ -1,9 +1,17 @@
+/* Fungsi handler harus menghindari proses lain yang
+bukan bagian dari request handling. Karena itu, proses
+CRUD disimpan terpisah di notesService.js */
 class NotesHandler {
   constructor(service) {
+    /* Parameter service nantinya akan diberikan nilai instance dari `NotesService`. Dengan begitu,
+    `NotesHandler` memiliki akses untuk mengelola resource notes lewat properti `this._service`. */
     this._service = service;
   }
 
   postNoteHandler(request, h) {
+    /* Karena `this._service.addNote` bisa membangkitkan
+    eror ketika catatan gagal dimasukkan, maka kita perlu
+    mengantisipasinya dengan menggunakan `try..catch`. */
     try {
       const { title = 'untitled', body, tags } = request.payload;
 

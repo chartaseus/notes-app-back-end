@@ -1,3 +1,10 @@
+/* Karena menggunakan plugin, kita tidak akan menggunakan
+fungsi-fungsi handler dari hasil impor secara langsung,
+melainkan handler yang akan digunakan pada route kali ini
+dimasukkan sebagai parameter fungsi. Inilah mengapa kita
+membuat fungsi yang mengembalikan array alih-alih membuat
+array secara langsung.
+ */
 const routes = (handler) => [
   {
     method: 'POST',

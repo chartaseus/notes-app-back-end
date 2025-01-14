@@ -5,6 +5,8 @@ module.exports = {
   name: 'notes',
   version: '1.0.0',
   register: async (server, { service }) => {
+    // karena `routes` kini berupa fungsi yang menerima
+    // handler sebagai parameter:
     const notesHandler = new NotesHandler(service);
     server.route(routes(notesHandler));
   },
