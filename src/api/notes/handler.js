@@ -3,9 +3,18 @@ bukan bagian dari request handling. Karena itu, proses
 CRUD disimpan terpisah di notesService.js */
 class NotesHandler {
   constructor(service) {
-    /* Parameter service nantinya akan diberikan nilai instance dari `NotesService`. Dengan begitu,
-    `NotesHandler` memiliki akses untuk mengelola resource notes lewat properti `this._service`. */
+    /* Parameter service nantinya akan diberikan nilai
+    instance dari NotesService (defined when registering
+    the plugin to server.js). Dengan begitu, NotesHandler
+    memiliki akses untuk mengelola resource notes lewat
+    properti `this._service`. */
     this._service = service;
+
+    this.postNoteHandler = this.postNoteHandler.bind(this);
+    this.getNotesHandler = this.getNotesHandler.bind(this);
+    this.getNoteByIdHandler = this.getNoteByIdHandler.bind(this);
+    this.putNoteByIdHandler = this.putNoteByIdHandler.bind(this);
+    this.deleteNoteByIdHandler = this.deleteNoteByIdHandler.bind(this);
   }
 
   postNoteHandler(request, h) {
