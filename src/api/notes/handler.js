@@ -2,13 +2,14 @@
 bukan bagian dari request handling. Karena itu, proses
 CRUD disimpan terpisah di notesService.js */
 class NotesHandler {
-  constructor(service) {
+  constructor(service, validator) {
     /* Parameter service nantinya akan diberikan nilai
     instance dari NotesService (defined when registering
     the plugin to server.js). Dengan begitu, NotesHandler
     memiliki akses untuk mengelola resource notes lewat
     properti `this._service`. */
     this._service = service;
+    this._validator = validator;
 
     this.postNoteHandler = this.postNoteHandler.bind(this);
     this.getNotesHandler = this.getNotesHandler.bind(this);
@@ -22,6 +23,7 @@ class NotesHandler {
     eror ketika catatan gagal dimasukkan, maka kita perlu
     mengantisipasinya dengan menggunakan `try..catch`. */
     try {
+      this._validator.validateNotePayload(request.payload);
       const { title = 'untitled', body, tags } = request.payload;
 
       const noteId = this._service.addNote({ title, body, tags });
@@ -77,6 +79,7 @@ class NotesHandler {
 
   putNoteByIdHandler(request, h) {
     try {
+      this._validator.validateNotePayload(request.payload);
       const { id } = request.params;
 
       this._service.editNoteById(id, request.payload);
