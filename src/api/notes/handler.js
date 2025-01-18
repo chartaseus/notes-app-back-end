@@ -45,7 +45,7 @@ class NotesHandler {
     };
   }
 
-  getNoteByIdHandler(request, h) {
+  getNoteByIdHandler(request) {
     const { id } = request.params;
     const note = this._service.getNoteById(id);
     return {
@@ -56,7 +56,7 @@ class NotesHandler {
     };
   }
 
-  putNoteByIdHandler(request, h) {
+  putNoteByIdHandler(request) {
     this._validator.validateNotePayload(request.payload);
     const { id } = request.params;
 
@@ -68,7 +68,7 @@ class NotesHandler {
     };
   }
 
-  deleteNoteByIdHandler(request, h) {
+  deleteNoteByIdHandler(request) {
     const { id } = request.params;
     this._service.deleteNoteById(id);
     return {
